@@ -35,3 +35,31 @@ test.target <- read.csv("tictarget.csv",header = F,  stringsAsFactors = FALSE)
 colnames(test.target) <- colnames(train.data[86])
 
 test.data <- cbind(test.data,test.target)
+
+#correlation
+install.packages("corrplot")
+library(corrplot)
+corr_matrix<- cor(train.data[,c(16:29,37:42,86)])
+corrplot(corr_matrix, type = "upper", diag = F,tl.pos = NULL, tl.cex = 0.3, tl.col = "red", tl.offset = 0.4, tl.srt = 90)
+
+
+
+data <- rbind(train.data,test.data)
+corr_matrix_2<- cor(data[,c(16:29,37:42)])
+corrplot(corr_matrix_2, type = "upper", diag = F,tl.pos = NULL, tl.cex = 0.3, tl.col = "red", tl.offset = 0.4, tl.srt = 90)
+
+
+
+zeros_train <- colSums(train.data[,c(44:85)]==0)/nrow(train.data[,c(44:85)]==0)*100
+zeros_sum <- colSums(data[,c(44:85)]==0)/nrow(data[,c(44:85)]==0)*100
+zeros_train
+zeros_sum
+which(zeros_train<90)
+which(zeros_sum<90)
+
+
+
+corr_matrix_2<- cor(train.data[,c(44:64,86)])
+corrplot(corr_matrix_2, type = "upper", diag = F,tl.pos = NULL, tl.cex = 0.3, tl.col = "red", tl.offset = 0.4, tl.srt = 90)
+#izbaciti number of..
+#cont. car, fire, private third party...
