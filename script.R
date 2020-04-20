@@ -63,3 +63,54 @@ corr_matrix_2<- cor(train.data[,c(44:64,86)])
 corrplot(corr_matrix_2, type = "upper", diag = F,tl.pos = NULL, tl.cex = 0.3, tl.col = "red", tl.offset = 0.4, tl.srt = 90)
 #izbaciti number of..
 #cont. car, fire, private third party...
+
+corr_matrix_3<- cor(data[,c(16:18,25:29,37:41,86)])
+corrplot(corr_matrix_3, type = "upper", diag = F,tl.pos = NULL, tl.cex = 0.3, tl.col = "red", tl.offset = 0.4, tl.srt = 90)
+
+
+#Izbacivanje kolona nakon konsultovanja sa profesorkom 
+
+#ostaju
+colnames(train.data[c(44, 47, 59, 61)])
+
+#Dobijanje agregirane varijable za uloženi novac u ostala osiguranja
+train.data.other.contribution <- train.data[, 44:64]
+train.data.other.contribution$Cont.private.third.party.insr <- NULL
+train.data.other.contribution$Cont.car.pol <- NULL
+train.data.other.contribution$Cont.fire.pol <- NULL
+train.data.other.contribution$Cont.boat.pol <- NULL
+train.data.other.contribution <- as.data.frame(apply(train.data.other.contribution, 1, sum))
+
+#Dobijanje agregirane varijable za broj kupljenih ostalih osiguranja
+train.data.other.number.of.pol <- train.data[, 65:85]
+train.data.other.number.of.pol$Num.of.private.third.party.insur <- NULL
+train.data.other.number.of.pol$Num.of.car.pol <- NULL
+train.data.other.number.of.pol$Number.of.fire.pol <- NULL
+train.data.other.number.of.pol$Number.of.boat.pol <- NULL
+train.data.other.number.of.pol <- as.data.frame(apply(train.data.other.number.of.pol, 1, sum))
+
+train.data.new <- train.data[,-c(6:9, 42, 16:18, 25:29, 45, 46, 48:58, 60, 62:64, 66, 67, 69:79, 81, 83:85)]
+train.data.new$Other.contribution <- train.data.other.contribution
+train.data.new$Number.of.other.policies <- train.data.other.number.of.pol
+
+#Za data set za testiranje dobijanje agregirane varijable za uloženi novac u ostala osiguranja
+test.data.other.contribution <- test.data[, 44:64]
+test.data.other.contribution$Cont.private.third.party.insr <- NULL
+test.data.other.contribution$Cont.car.pol <- NULL
+test.data.other.contribution$Cont.fire.pol <- NULL
+test.data.other.contribution$Cont.boat.pol <- NULL
+test.data.other.contribution <- as.data.frame(apply(test.data.other.contribution, 1, sum))
+
+#Za data set za testiranje dobijanje agregirane varijable za broj kupljenih ostalih osiguranja
+test.data.other.number.of.pol <- test.data[, 65:85]
+test.data.other.number.of.pol$Num.of.private.third.party.insur <- NULL
+test.data.other.number.of.pol$Num.of.car.pol <- NULL
+test.data.other.number.of.pol$Number.of.fire.pol <- NULL
+test.data.other.number.of.pol$Number.of.boat.pol <- NULL
+test.data.other.number.of.pol <- as.data.frame(apply(test.data.other.number.of.pol, 1, sum))
+
+test.data.new <- test.data[,-c(6:9, 42, 16:18, 25:29, 45, 46, 48:58, 60, 62:64, 66, 67, 69:79, 81, 83:85)]
+test.data.new$Other.contribution <- test.data.other.contribution
+test.data.new$Number.of.other.policies <- test.data.other.number.of.pol
+
+
