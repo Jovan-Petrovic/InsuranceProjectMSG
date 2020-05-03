@@ -97,3 +97,75 @@ CrossTable(data$Married, data$Num.of.mobile.home.policies, chisq = TRUE, prop.t 
 
 # For continuous vs continuous
 scatter.smooth(data$Married, data$Home.owners)
+
+
+##############################################################
+### UNIVARIATE ANALYSIS ###
+
+# first category - socio-demografic variables
+# almost all variables are in max range 0-9
+apply(data[6:43], 2, summary)
+apply(data[6:43], 2, sd)
+
+# second category - contributon variables
+uni.eda.cont <- apply(data[44:64], 2, summary)
+apply(data[44:64], 2, sd)
+# uni.eda.cont is matrix
+class(uni.eda.cont)
+# transforming to data.frame
+data.uni.eda.cont <- as.data.frame(uni.eda.cont)
+View(data.uni.eda.cont)
+# only 3 attributes have at least one opservation with maximum contribution
+sum(data.uni.eda.cont["Max.",]==9)
+# only 2 attributes have median different than zero
+sum(data.uni.eda.cont["Median",]!=0)
+# only 3 attributes have 3rd quartile different than zero
+sum(data.uni.eda.cont["3rd Qu.",]!=0)
+
+# third category - number of variables
+uni.eda.num.of <- apply(data[65:85], 2, summary)
+View(uni.eda.num.of)
+apply(data[65:85], 2, sd)
+class(uni.eda.num.of)
+data.uni.eda.num.of <- as.data.frame(uni.eda.num.of)
+View(data.uni.eda.num.of)
+# only 1 attribute have at least one opservation with maximum number of policies of 12
+sum(data.uni.eda.num.of["Max.",]==12)
+# 4 attribute have no opservation with number of policies greater than 1
+sum(data.uni.eda.num.of["Max.",]==1)
+# only 2 attributes have median different than zero
+sum(data.uni.eda.num.of["Median",]!=0)
+# only 3 attributes have 3rd quartile different than zero
+sum(data.uni.eda.num.of["3rd Qu.",]!=0)
+
+
+##############################################################
+### MULTIVARIATE ANALYSIS ###
+
+by(data$Cont.car.pol, data$Num.of.mobile.home.policies, summary)
+by(data$Cont.fire.pol, data$Num.of.mobile.home.policies, summary)
+
+boxplot(data$Cont.car.pol~data$Num.of.mobile.home.policies, col = c("grey","gold"),
+        main = "Ulaganje u osiguranje automobila u odnosu na izlaznu promenljivu",
+        xlab = "Da li je korisnik kupio osiguranje karavana",
+        ylab = "Visina ulaganja u osiguranje automobila")
+boxplot(data$Cont.fire.pol~data$Num.of.mobile.home.policies,
+        col = c("grey","gold"), main = "Ulaganje u osiguranje od požara u odnosu na izlaznu promenljivu",
+        xlab = "Da li je korisnik kupio osiguranje karavana",
+        ylab = "Visina ulaganja u osiguranje od požara")
+
+library("dplyr")
+bought = filter(data, Num.of.mobile.home.policies == "1")
+View(bought)
+plot(table(bought$Cont.car.pol), main = "Num of car users who bought caravan insurance")
+
+barplot(table(data$Cont.car.pol[data$Num.of.mobile.home.policies==1]),border="dark blue",main = "Ulaganje u osiguranje automobila korisnika koji su kupili osiguranje karavana",xlab = "Ulaganje u osiguranje automobila",ylab = "Broj korisnika")
+barplot(table(data$Cont.fire.pol[data$Num.of.mobile.home.policies==1]),border="dark blue",main = "PURCHASE OF CARAVAN POLICY vs NUMBER OF CAR POLICIES",xlab = "Number of car policies",ylab = "Number of customers")
+
+library(gmodels)
+#chisq - level of significance 
+CrossTable(data$Cont.car.pol, data$Num.of.mobile.home.policies, chisq = TRUE, prop.t = F)
+# use chi-sq to find p-value wich will show significance
+# p-value > 0.05 is not significant
+
+CrossTable(data$Cont.fire.pol, data$Num.of.mobile.home.policies, chisq = TRUE, prop.t = F)

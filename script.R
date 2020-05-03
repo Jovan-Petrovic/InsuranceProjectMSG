@@ -114,3 +114,13 @@ test.data.new$Other.contribution <- test.data.other.contribution
 test.data.new$Number.of.other.policies <- test.data.other.number.of.pol
 
 
+# Unbalanced structure of target variable
+table(train.data$Num.of.mobile.home.policies)
+plot(table(train.data$Num.of.mobile.home.policies), type = "h", col = "red", lwd = 15, xlab = "Da li je korisnik kupio osiguranje: 0 - Ne, 1 - Da", ylab = "Broj korisnika", main = "Prikaz nebalansirane strukture izlazne promenljive")
+
+# All datasets
+# str(train.data)
+# str(test.data)
+# str(data)
+# str(train.data.new)
+# str(test.data.new)
