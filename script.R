@@ -39,10 +39,10 @@ test.data <- cbind(test.data,test.target)
 #correlation
 install.packages("corrplot")
 library(corrplot)
+train.data[,86] <- as.integer(train.data[,86])
 corr_matrix<- cor(train.data[,c(16:29,37:42,86)])
+corr_matrix<- cor(train.data[,c(16:29,37:42,86)], method = "spearman")
 corrplot(corr_matrix, type = "upper", diag = F,tl.pos = NULL, tl.cex = 0.3, tl.col = "red", tl.offset = 0.4, tl.srt = 90)
-
-
 
 data <- rbind(train.data,test.data)
 corr_matrix_2<- cor(data[,c(16:29,37:42)])
@@ -124,3 +124,4 @@ plot(table(train.data$Num.of.mobile.home.policies), type = "h", col = "red", lwd
 # str(data)
 # str(train.data.new)
 # str(test.data.new)
+
