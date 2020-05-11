@@ -107,6 +107,8 @@ scatter.smooth(data$Married, data$Home.owners)
 apply(data[6:43], 2, summary)
 apply(data[6:43], 2, sd)
 
+summary(data[,86])
+
 # second category - contributon variables
 uni.eda.cont <- apply(data[44:64], 2, summary)
 apply(data[44:64], 2, sd)

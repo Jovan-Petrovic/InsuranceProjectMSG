@@ -124,4 +124,8 @@ plot(table(train.data$Num.of.mobile.home.policies), type = "h", col = "red", lwd
 # str(data)
 # str(train.data.new)
 # str(test.data.new)
-
+# str(train.data.new.boruta)
+# str(test.data.new.boruta)
+# str(train.data.new.boruta.som.normalized)
+# str(train.data.new.boruta.ssom.normalizedX)
+# str(test.data.new.boruta.ssom.normalizedY)

@@ -22,10 +22,10 @@ print(borutaAlgorithm)
 borutaAlgorithm$finalDecision
 
 # Varijable koje nisu odbacene
-nonRejected <- getNonRejectedFormula(boruta)
+nonRejected <- getNonRejectedFormula(borutaAlgorithm)
 
 # Varijable koje su potvrdjene kao znacajne
-confirmed <- getConfirmedFormula(boruta)
+confirmed <- getConfirmedFormula(borutaAlgorithm)
 
 # las = 2 - nazivi atributa da bufduvertikalni, cex.axis - velicina fonta
 plot(borutaAlgorithm, las = 2, cex.axis = 0.7)
@@ -40,3 +40,18 @@ plotImpHistory(borutaAlgorithm)
 attStats(borutaAlgorithm)
 
 saveRDS(boruta, file = "borutaAlgorithm.rds")
+
+
+train.data.new.boruta <- train.data.new
+train.data.new.boruta$Number.of.houses <- NULL
+train.data.new.boruta$Cont.fire.pol <- NULL
+train.data.new.boruta$Number.of.fire.pol <- NULL
+train.data.new.boruta$Num.of.car.pol <- NULL
+
+test.data.new.boruta <- test.data.new
+test.data.new.boruta$Number.of.houses <- NULL
+test.data.new.boruta$Cont.fire.pol <- NULL
+test.data.new.boruta$Number.of.fire.pol <- NULL
+test.data.new.boruta$Num.of.car.pol <- NULL
+
+write.csv(train.data.new.boruta, 'train.data.new.boruta.csv')
