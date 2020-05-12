@@ -21,4 +21,5 @@ map$unit.classif
 map$codes
 plot(map, type = 'codes', palette.name = rainbow, main = "Mapping of codes")
 plot(map, type = 'count')
+plot(map, type = 'mapping')
 plot(map, type = 'dist.neighbours')
